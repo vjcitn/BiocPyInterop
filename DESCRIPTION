@@ -15,7 +15,7 @@ LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
 Depends: 
-    BiocHail, scviR
+    basilisk, BiocHail, scviR
 Suggests: 
     knitr,
     rmarkdown,
