@@ -1,3 +1,7 @@
+# BiocPyInterop
+
+This package will address use of basilisk for BiocHail and scviR.
+
 # BuildABiocWorkshop
 
 This package is a template for building a Bioconductor workshop. The package
