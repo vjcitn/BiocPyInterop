@@ -5,7 +5,8 @@
 #' @import basilisk
 #' @import BiocHail
 #' @import methods
-#' @import S4Vectors
+#' @rawNamespace import("S4Vectors", except="as.data.frame")
+#' @rawNamespace import("SummarizedExperiment", except="as.data.frame")
 #' @import SingleCellExperiment
 #' @examples
 #' ss = setup_vicite()

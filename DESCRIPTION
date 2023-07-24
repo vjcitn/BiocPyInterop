@@ -21,7 +21,8 @@ Suggests:
     rmarkdown,
     pkgdown
 Imports:
-    methods, scater, basilisk, BiocHail, scviR, SingleCellExperiment,
+    methods, scater, basilisk, BiocHail, scviR, SummarizedExperiment,
+    SingleCellExperiment,
     S4Vectors
 URL: https://vjcitn.github.io/BiocPyInterop/
 BugReports: https://github.com/vjcitn/BiocPyInterop/issues/new/choose
