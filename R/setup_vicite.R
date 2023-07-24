@@ -2,6 +2,11 @@
 #' 5k PBMC data) with cells held in common with the OSCA ch12 CITE-seq example
 #' @importFrom scater sumCountsAcrossCells
 #' @import scviR
+#' @import basilisk
+#' @import BiocHail
+#' @import methods
+#' @import S4Vectors
+#' @import SingleCellExperiment
 #' @examples
 #' ss = setup_vicite()
 #' ss
