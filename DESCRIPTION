@@ -1,6 +1,6 @@
 Package: BiocPyInterop
 Title: Bioc 2023 conference workshop on python interoperation
-Version: 0.0.1
+Version: 0.0.2
 Authors@R: 
     person(given = "Vincent",
            family = "Carey",
@@ -13,7 +13,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.0
+RoxygenNote: 7.2.3
 Depends: 
     basilisk, BiocHail, scviR
 Suggests: 

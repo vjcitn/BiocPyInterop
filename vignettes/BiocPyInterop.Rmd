@@ -1,9 +1,9 @@
 ---
-title: "BiocPyInterop introduction"
+title: "BiocPyInterop workshop, Bioc2023"
 author: Vince Carey^[stvjc@channing.harvard.edu]
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{BiocPyInterop introduction}
+  %\VignetteIndexEntry{BiocPyInterop workshop, Bioc2023}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -16,7 +16,7 @@ knitr::opts_chunk$set(
 )
 ```
 
-# Workshop Title
+# Approaches to reuse of python-based systems for single cell genomics and genetics with Bioconductor and basilisk
 
 Authors:
     Vince Carey^[Harvard Medical School],
@@ -31,7 +31,7 @@ Abstract: Multilingual data science strategies can increase efficiency of discov
 
 In this workshop we will examine interplay between R, Python, and Apache Spark in genetic and single-cell applications.  CITE-seq studies simultaneously quantify surface protein and mRNA abundance in single cells.  We will use scviR to compare interpretations based on deep learning and sequential component-specific methods.  
 
-The UK Biobank is the foundation of thousands of genome-wide association studies.  The Telomere-to-Telomere project produced the first gapless human reference genome.  Both of these resources will be explored using BiocHail.  Workshop attendees will acquire an understanding of Aaron Lun's basilisk package and its use in isolating specific collections of python modules, the anndata representations and scvi-tools analyses of CITE-seq data, and the hail.is approach to structuring and analyzing massive genetics data resources using Spark Resilient Distributed Data.  All programming will be carried out in R; quarto documents that mix R and python will also be illustrated.
+The UK Biobank is the foundation of thousands of genome-wide association studies.  The Telomere-to-Telomere project produced the first gapless human reference genome.  Both of these resources will be explored using BiocHail.  Workshop attendees will acquire an understanding of Aaron Lun's [basilisk](https://bioconductor.org/packages/basilisk) package and its use in isolating specific collections of python modules, the anndata representations and scvi-tools analyses of CITE-seq data, and the hail.is approach to structuring and analyzing massive genetics data resources using Spark Resilient Distributed Data.  All programming will be carried out in R; quarto documents that mix R and python will also be illustrated.
 
 ### Pre-requisites
 
@@ -43,6 +43,7 @@ It will be helpful to have an acquaintance with
 * [a chapter of the OSCA book](http://bioconductor.org/books/3.17/OSCA.advanced/integrating-with-protein-abundance.html)
 * [an scviR vignette](https://bioconductor.org/packages/release/bioc/vignettes/scviR/inst/doc/citeseq_tut.html)
 * [a BiocHail vignette](https://bioconductor.org/packages/release/bioc/vignettes/BiocHail/inst/doc/gwas_tut.html)
+* [a look at BiocT2T](https://vjcitn.github.io/BiocT2T/) -- note that we will not work with the T2T 1KG extract in detail, as it involves a 40+ GB download, but the mechanics of working with it on your own will be explained
 
 ### Participation
 
@@ -61,7 +62,18 @@ This is a 90 minute workshop that will cover
 
 ### Time outline
 
-TBD
+| Activity               | Time |
+|------------------------|------|
+|Verify setup            | 5m  |
+|Motivations/discussion  | 5m  |
+|basilisk and basilisk.utils | 10m |
+|  (concerns with bloat)  |  |
+|OSCA advanced: CITE-seq | 15m  |
+|break			| 10 m |
+|scviR -- AnnData and tutorial VAE | 20m |
+|Hail: exploring 1KG and UKBB | 20m |
+|Review | 5m |
+
 
 <!--
 An example for a 45-minute workshop:
