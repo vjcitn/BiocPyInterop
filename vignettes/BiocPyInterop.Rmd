@@ -74,6 +74,33 @@ This is a 90 minute workshop that will cover
 |Hail: exploring 1KG and UKBB | 20m |
 |Review | 5m |
 
+### Workshop goals and objectives
+
+- Learning goals:
+    - understand basic issues with connecting R/Bioconductor to Python software tools for genomics
+    - relate aspects of the anndata class to aspects of SummarizedExperiment
+    - compare findings in a stepwise analysis of PBMC data in Bioconductor to those obtained
+with findings from fitting an autoencoder to the same data in scvi-tools
+    - explore Hail's structures and methods for working with genotypes and phenotypes at scale
+
+
+
+- Learning objectives:
+    - Understand the user situation when basilisk manages python resources and usage
+        - review functions in basilisk.utils
+        - assess resource consumption (disk space used per version of basilisk/client package)
+        - process management: check ?getBasiliskFork
+    - Review an analysis of CITE-seq data on 6800 cells with Bioconductor in [OSCA advanced](http://bioconductor.org/books/3.17/OSCA.advanced/integrating-with-protein-abundance.html)
+        - review [ADT-based clustering and interpretation](http://bioconductor.org/books/3.17/OSCA.advanced/integrating-with-protein-abundance.html#clustering-and-interpretation)
+        - review [correlations between features](http://bioconductor.org/books/3.17/OSCA.advanced/integrating-with-protein-abundance.html#finding-correlations-between-features)
+        - Examine the totalVI-based quantifications for similar findings
+            - use plotUMAP and adtProfiles
+            - understand graduated relationships between surface protein and mRNA abundance
+        - Assess the sensitivity of totalVI-based interpretations to details of autoencoder training
+    - Use BiocHail and spark
+        - examine an artificial GWAS with 1000 genomes genotypes and a fabricated phenotype
+        - understand how to use telomere-to-telomere variant calls with Hail
+
 
 <!--
 An example for a 45-minute workshop:
