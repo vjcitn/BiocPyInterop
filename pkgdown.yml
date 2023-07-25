@@ -3,8 +3,8 @@ pkgdown: 2.0.7
 pkgdown_sha: ~
 articles:
   BiocPyInterop: BiocPyInterop.html
-last_built: 2023-07-24T16:08Z
+last_built: 2023-07-25T02:17Z
 urls:
-  reference: https://seandavi.github.io/BuildABiocWorkshop/reference
-  article: https://seandavi.github.io/BuildABiocWorkshop/articles
+  reference: https://vjcitn.github.io/BiocPyInterop/reference
+  article: https://vjcitn.github.io/BiocPyInterop/articles
 

@@ -48,7 +48,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/seandavi/BuildABiocWorkshop" class="external-link">
+  <a href="https://github.com/vjcitn/BiocPyInterop" class="external-link">
     <span class="fa fa-github"></span>
      
   </a>
@@ -202,6 +202,67 @@ genotypes (and, if time permits, UK Biobank phenotypes)</li>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="section level4">
+<h4 id="workshop-goals-and-objectives">Workshop goals and objectives<a class="anchor" aria-label="anchor" href="#workshop-goals-and-objectives"></a>
+</h4>
+<ul>
+<li>Learning goals:
+<ul>
+<li>understand basic issues with connecting R/Bioconductor to Python
+software tools for genomics</li>
+<li>relate aspects of the anndata class to aspects of
+SummarizedExperiment</li>
+<li>compare findings in a stepwise analysis of PBMC data in Bioconductor
+to those obtained with findings from fitting an autoencoder to the same
+data in scvi-tools</li>
+<li>explore Hail’s structures and methods for working with genotypes and
+phenotypes at scale</li>
+</ul>
+</li>
+<li>Learning objectives:
+<ul>
+<li>Understand the user situation when basilisk manages python resources
+and usage
+<ul>
+<li>review functions in basilisk.utils</li>
+<li>assess resource consumption (disk space used per version of
+basilisk/client package)</li>
+<li>process management: check ?getBasiliskFork</li>
+</ul>
+</li>
+<li>Review an analysis of CITE-seq data on 6800 cells with Bioconductor
+in <a href="http://bioconductor.org/books/3.17/OSCA.advanced/integrating-with-protein-abundance.html" class="external-link">OSCA
+advanced</a>
+<ul>
+<li>review <a href="http://bioconductor.org/books/3.17/OSCA.advanced/integrating-with-protein-abundance.html#clustering-and-interpretation" class="external-link">ADT-based
+clustering and interpretation</a>
+</li>
+<li>review <a href="http://bioconductor.org/books/3.17/OSCA.advanced/integrating-with-protein-abundance.html#finding-correlations-between-features" class="external-link">correlations
+between features</a>
+</li>
+<li>Examine the totalVI-based quantifications for similar findings
+<ul>
+<li>use plotUMAP and adtProfiles</li>
+<li>understand graduated relationships between surface protein and mRNA
+abundance</li>
+</ul>
+</li>
+<li>Assess the sensitivity of totalVI-based interpretations to details
+of autoencoder training</li>
+</ul>
+</li>
+<li>Use BiocHail and spark
+<ul>
+<li>examine an artificial GWAS with 1000 genomes genotypes and a
+fabricated phenotype</li>
+<li>understand how to use telomere-to-telomere variant calls with
+Hail</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
 <!--
 An example for a 45-minute workshop:
 

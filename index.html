@@ -5,13 +5,13 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>BuildABiocWorkshop • BiocPyInterop</title>
+<title>BiocPyInterop • BiocPyInterop</title>
 <!-- jquery --><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script><!-- Bootstrap --><link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.4.0/flatly/bootstrap.min.css" rel="stylesheet" crossorigin="anonymous">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha256-nuL8/2cJ5NDSSwnKD8VqreErSWHtnEP9E7AySL+1ev4=" crossorigin="anonymous"></script><!-- bootstrap-toc --><link rel="stylesheet" href="bootstrap-toc.css">
 <script src="bootstrap-toc.js"></script><!-- Font Awesome icons --><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css" integrity="sha256-mmgLkCYLUQbXn0B1SRqzHar6dCnv9oZFPEC1g1cwlkk=" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/v4-shims.min.css" integrity="sha256-wZjR52fzng1pJHwx4aV2AO3yyTOXrcDW7jBpJtTwVxw=" crossorigin="anonymous">
 <!-- clipboard.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><!-- headroom.js --><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/headroom.min.js" integrity="sha256-AsUX4SJE1+yuDu5+mAVzJbuYNPHj/WroHuZ8Ir/CkE0=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/headroom/0.11.0/jQuery.headroom.min.js" integrity="sha256-ZX/yNShbjqsohH1k95liqY9Gd8uOiE1S4vZc+9KQ1K4=" crossorigin="anonymous"></script><!-- pkgdown --><link href="pkgdown.css" rel="stylesheet">
-<script src="pkgdown.js"></script><meta property="og:title" content="BuildABiocWorkshop">
+<script src="pkgdown.js"></script><meta property="og:title" content="BiocPyInterop">
 <meta property="og:description" content="This package coordinates use of BiocHail and
     scviR for workshop">
 <!-- mathjax --><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js" integrity="sha256-nvJJv9wWKEm88qvoQl9ekL2J+k/RWIsaSScxxlsrv8k=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/config/TeX-AMS-MML_HTMLorMML.js" integrity="sha256-84DKXVJXs0/F8OTMzX4UR909+jtl4G7SPypPavF+GfA=" crossorigin="anonymous"></script><!--[if lt IE 9]>
@@ -49,7 +49,7 @@
       </ul>
 <ul class="nav navbar-nav navbar-right">
 <li>
-  <a href="https://github.com/seandavi/BuildABiocWorkshop" class="external-link">
+  <a href="https://github.com/vjcitn/BiocPyInterop" class="external-link">
     <span class="fa fa-github"></span>
      
   </a>
@@ -66,68 +66,198 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
-
 <div class="section level1">
 <div class="page-header"><h1 id="biocpyinterop">BiocPyInterop<a class="anchor" aria-label="anchor" href="#biocpyinterop"></a>
 </h1></div>
-<p>This package will address use of basilisk for BiocHail and scviR.</p>
+<p>This package is the basis of a workshop that will address use of python software in Bioconductor. We focus on use of basilisk in packages BiocHail and scviR.</p>
+<div class="section level3">
+<h3 id="description-of-workshop">Description of workshop<a class="anchor" aria-label="anchor" href="#description-of-workshop"></a>
+</h3>
+<p>Abstract: Multilingual data science strategies can increase efficiency of discovery by taking advantage of diverse data management and analysis strategies.</p>
+<p>In this workshop we will examine interplay between R, Python, and Apache Spark in genetic and single-cell applications. CITE-seq studies simultaneously quantify surface protein and mRNA abundance in single cells. We will use scviR to compare interpretations based on deep learning and sequential component-specific methods.</p>
+<p>The UK Biobank is the foundation of thousands of genome-wide association studies. The Telomere-to-Telomere project produced the first gapless human reference genome. Both of these resources will be explored using BiocHail. Workshop attendees will acquire an understanding of Aaron Lun’s <a href="https://bioconductor.org/packages/basilisk" class="external-link">basilisk</a> package and its use in isolating specific collections of python modules, the anndata representations and scvi-tools analyses of CITE-seq data, and the hail.is approach to structuring and analyzing massive genetics data resources using Spark Resilient Distributed Data. All programming will be carried out in R; quarto documents that mix R and python will also be illustrated.</p>
 </div>
-<div class="section level1">
-<h1 id="buildabiocworkshop">BuildABiocWorkshop<a class="anchor" aria-label="anchor" href="#buildabiocworkshop"></a>
-</h1>
-<p>This package is a template for building a Bioconductor workshop. The package includes Github actions to:</p>
-<ol style="list-style-type: decimal">
-<li>Set up bioconductor/bioconductor_docker:devel on Github resources</li>
-<li>Install package dependencies for your package (based on the <code>DESCRIPTION</code> file)</li>
-<li>Run <code><a href="http://r-lib.github.io/rcmdcheck/reference/rcmdcheck.html" class="external-link">rcmdcheck::rcmdcheck</a></code>
-</li>
-<li>Build a pkgdown website and push it to github pages</li>
-<li>Build a docker image with the installed package and dependencies and deploy to <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry#pulling-container-images" class="external-link">the Github Container Repository</a> at the name <code>ghcr.io/gihub_user/repo_name</code>, all lowercase.</li>
-</ol>
-<div class="section level2">
-<h2 id="responsibilities">Responsibilities<a class="anchor" aria-label="anchor" href="#responsibilities"></a>
-</h2>
-<p>Package authors are primarily responsible for:</p>
-<ol style="list-style-type: decimal">
-<li>Creating a landing site of their choosing for their workshops (a website). This website should be listed in the <code>DESCRIPTION</code> file as the <code>URL</code>.</li>
-<li>Creating a docker image that will contain workshop materials and the installed packages necessary to run those materials. The name of the resulting docker image, including “tag” if desired, should be listed in a non-standard tag, <code>DockerImage:</code> in the <code>DESCRIPTION</code> file.</li>
-</ol>
-<p>Both of those tasks can be accomplished using the Github actions included in this template package. The vignette accompanying this package describes how to accomplish both of these tasks.</p>
-</div>
-<div class="section level2">
-<h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a>
-</h2>
-<p>For detailed instructions, see the <code>How to build a workshop</code> article/vignette.</p>
-</div>
-<div class="section level2">
-<h2 id="results-of-successful-deployment">Results of successful deployment<a class="anchor" aria-label="anchor" href="#results-of-successful-deployment"></a>
-</h2>
+<div class="section level3">
+<h3 id="pre-requisites">Pre-requisites<a class="anchor" aria-label="anchor" href="#pre-requisites"></a>
+</h3>
 <ul>
-<li>A working docker image that contains the installed package and dependencies.</li>
-<li>An up-to-date <code>pkgdown</code> website at <a href="https://YOURUSERNAME.github.io/YOURREPOSITORYNAME/" class="external-link uri">https://YOURUSERNAME.github.io/YOURREPOSITORYNAME/</a>
-</li>
-<li>Docker image will be tagged with <code>latest</code>, <code>sha-XXXXXX</code> where <code>XXXXXX</code> is the hash of the current <code>master</code> commit, and <code>master</code>.</li>
+<li>Basic knowledge of R syntax</li>
+<li>Interest in single-cell genomics, human genetics, deep learning</li>
+</ul>
+<p>It will be helpful to have an acquaintance with</p>
+<ul>
+<li><a href="http://bioconductor.org/books/3.17/OSCA.advanced/integrating-with-protein-abundance.html" class="external-link">a chapter of the OSCA book</a></li>
+<li><a href="https://bioconductor.org/packages/release/bioc/vignettes/scviR/inst/doc/citeseq_tut.html" class="external-link">an scviR vignette</a></li>
+<li><a href="https://bioconductor.org/packages/release/bioc/vignettes/BiocHail/inst/doc/gwas_tut.html" class="external-link">a BiocHail vignette</a></li>
+<li>
+<a href="https://vjcitn.github.io/BiocT2T/" class="external-link">a look at BiocT2T</a> – note that we will not work with the T2T 1KG extract in detail, as it involves a 40+ GB download, but the mechanics of working with it on your own will be explained</li>
 </ul>
 </div>
-<div class="section level2">
-<h2 id="to-use-the-resulting-image">To use the resulting image:<a class="anchor" aria-label="anchor" href="#to-use-the-resulting-image"></a>
-</h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-e</span> PASSWORD=<span class="op">&lt;</span>choose_a_password_for_rstudio<span class="op">&gt;</span> -p 8787:8787 YOURDOCKERIMAGENAME</span></code></pre></div>
-<p>Once running, navigate to <a href="http://localhost:8787/" class="external-link uri">http://localhost:8787/</a> and then login with <code>rstudio</code>:<code>yourchosenpassword</code>.</p>
-<p>To try with <strong>this</strong> repository docker image:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="ex">docker</span> run <span class="at">-e</span> PASSWORD=abc <span class="at">-p</span> 8787:8787 ghcr.io/bioconductor/buildabiocworkshop</span></code></pre></div>
-<p><em>NOTE</em>: Running docker that uses the password in plain text like above exposes the password to others in a multi-user system (like a shared workstation or compute node). In practice, consider using an environment variable instead of plain text to pass along passwords and other secrets in docker command lines.</p>
-</div>
-<div class="section level2">
-<h2 id="whatcha-get">Whatcha get<a class="anchor" aria-label="anchor" href="#whatcha-get"></a>
-</h2>
+<div class="section level3">
+<h3 id="participation">Participation<a class="anchor" aria-label="anchor" href="#participation"></a>
+</h3>
+<p>This is a 90 minute workshop that will cover</p>
 <ul>
-<li><a href="https://bioconductor.github.io/BuildABiocWorkshop" class="external-link uri">https://bioconductor.github.io/BuildABiocWorkshop</a></li>
-<li>A Docker image that you can run locally, in the cloud, or (usually) even as a singularity container on HPC systems.</li>
+<li>programming with basilisk to establish predictable python infrastructure and interoperation</li>
+<li>exploration of torch-based tooling for single-cell analysis of a CITE-seq experiment</li>
+<li>exploration of spark-based tooling for interaction with 1000 genomes genotypes (and, if time permits, UK Biobank phenotypes)</li>
 </ul>
 </div>
+<div class="section level3">
+<h3 id="r--bioconductor-packages-used">
+<em>R</em> / <em>Bioconductor</em> packages used<a class="anchor" aria-label="anchor" href="#r--bioconductor-packages-used"></a>
+</h3>
+<ul>
+<li>basilisk</li>
+<li>OSCA.advanced</li>
+<li>scviR</li>
+<li>BiocHail</li>
+</ul>
 </div>
+<div class="section level3">
+<h3 id="time-outline">Time outline<a class="anchor" aria-label="anchor" href="#time-outline"></a>
+</h3>
+<table class="table">
+<thead><tr class="header">
+<th>Activity</th>
+<th>Time</th>
+</tr></thead>
+<tbody>
+<tr class="odd">
+<td>Verify setup</td>
+<td>5m</td>
+</tr>
+<tr class="even">
+<td>Motivations/discussion</td>
+<td>5m</td>
+</tr>
+<tr class="odd">
+<td>basilisk and basilisk.utils</td>
+<td>10m</td>
+</tr>
+<tr class="even">
+<td>(concerns with bloat)</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>OSCA advanced: CITE-seq</td>
+<td>15m</td>
+</tr>
+<tr class="even">
+<td>break</td>
+<td>10 m</td>
+</tr>
+<tr class="odd">
+<td>scviR – AnnData and tutorial VAE</td>
+<td>20m</td>
+</tr>
+<tr class="even">
+<td>Hail: exploring 1KG and UKBB</td>
+<td>20m</td>
+</tr>
+<tr class="odd">
+<td>Review</td>
+<td>5m</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section level3">
+<h3 id="workshop-goals-and-objectives">Workshop goals and objectives<a class="anchor" aria-label="anchor" href="#workshop-goals-and-objectives"></a>
+</h3>
+<ul>
+<li>Learning goals:
+<ul>
+<li>understand basic issues with connecting R/Bioconductor to Python software tools for genomics</li>
+<li>relate aspects of the anndata class to aspects of SummarizedExperiment</li>
+<li>compare findings in a stepwise analysis of PBMC data in Bioconductor to those obtained with findings from fitting an autoencoder to the same data in scvi-tools</li>
+<li>explore Hail’s structures and methods for working with genotypes and phenotypes at scale</li>
+</ul>
+</li>
+<li>Learning objectives:
+<ul>
+<li>Understand the user situation when basilisk manages python resources and usage
+<ul>
+<li>review functions in basilisk.utils</li>
+<li>assess resource consumption (disk space used per version of basilisk/client package)</li>
+<li>process management: check ?getBasiliskFork</li>
+</ul>
+</li>
+<li>Review an analysis of CITE-seq data on 6800 cells with Bioconductor in <a href="http://bioconductor.org/books/3.17/OSCA.advanced/integrating-with-protein-abundance.html" class="external-link">OSCA advanced</a>
+<ul>
+<li>review <a href="http://bioconductor.org/books/3.17/OSCA.advanced/integrating-with-protein-abundance.html#clustering-and-interpretation" class="external-link">ADT-based clustering and interpretation</a>
+</li>
+<li>review <a href="http://bioconductor.org/books/3.17/OSCA.advanced/integrating-with-protein-abundance.html#finding-correlations-between-features" class="external-link">correlations between abundances of mRNA and surface proteins</a>
+</li>
+<li>Examine the totalVI-based quantifications for similar findings
+<ul>
+<li>use plotUMAP and adtProfiles</li>
+<li>understand graduated relationships between surface protein and mRNA abundance</li>
+</ul>
+</li>
+<li>Assess the sensitivity of totalVI-based interpretations to details of autoencoder training</li>
+</ul>
+</li>
+<li>Use BiocHail and spark
+<ul>
+<li>examine an artificial GWAS with 1000 genomes genotypes and a fabricated phenotype</li>
+<li>understand how to use telomere-to-telomere variant calls with Hail</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<!--
+An example for a 45-minute workshop:
 
+| Activity                     | Time |
+|------------------------------|------|
+| Packages                     | 15m  |
+| Package Development          | 15m  |
+| Contributing to Bioconductor | 5m   |
+| Best Practices               | 10m  |
+
+### Workshop goals and objectives
+
+List "big picture" student-centered workshop goals and learning
+objectives. Learning goals and objectives are related, but not the
+same thing. These goals and objectives will help some people to decide
+whether to attend the conference for training purposes, so please make
+these as precise and accurate as possible.
+
+*Learning goals* are high-level descriptions of what
+participants will learn and be able to do after the workshop is
+over. *Learning objectives*, on the other hand, describe in very
+specific and measurable terms specific skills or knowledge
+attained. The [Bloom's Taxonomy](#bloom) may be a useful framework
+for defining and describing your goals and objectives, although there
+are others.
+
+### Learning goals
+
+Some examples:
+
+* describe how to...
+* identify methods for...
+* understand the difference between...
+
+### Learning objectives
+
+* analyze xyz data to produce...
+* create xyz plots
+* evaluate xyz data for artifacts
+
+## Workshop
+
+Divide the workshop into sections (`## A Section`). Include
+fully-evaluated _R_ code chunks. Develop exercises and solutions, and
+anticipate that your audience will walk through the code with you, or
+work on the code idependently -- do not be too ambitious in the
+material that you present.
+
+-->
+</div>
+</div>
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
