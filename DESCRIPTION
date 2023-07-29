@@ -1,6 +1,6 @@
 Package: BiocPyInterop
 Title: Bioc 2023 conference workshop on python interoperation
-Version: 0.0.3
+Version: 0.0.4
 Authors@R: 
     person(given = "Vincent",
            family = "Carey",

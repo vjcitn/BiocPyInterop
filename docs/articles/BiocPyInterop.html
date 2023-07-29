@@ -33,7 +33,7 @@
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">BiocPyInterop</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.3</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="">0.0.4</span>
       </span>
     </div>
 
@@ -222,6 +222,82 @@
 </ul>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="section level2">
+<h2 id="overview-of-basilisk">Overview of basilisk<a class="anchor" aria-label="anchor" href="#overview-of-basilisk"></a>
+</h2>
+<p>There are three basic phases of working with basilisk to interoperate with python in an R package.</p>
+<div class="section level3">
+<h3 id="basiliskenvironment">BasiliskEnvironment<a class="anchor" aria-label="anchor" href="#basiliskenvironment"></a>
+</h3>
+<p>First, define the <code>BasiliskEnvironment</code>, in which python dependencies are explicitly declared. Here’s an example from scviR, an interface to scvi-tools of the scverse. All explicit dependencies have versions pinned.</p>
+<pre><code><span><span class="va">bsklenv</span> <span class="op">&lt;-</span> <span class="fu">basilisk</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/basilisk/man/BasiliskEnvironment-class.html" class="external-link">BasiliskEnvironment</a></span><span class="op">(</span></span>
+<span>  envname <span class="op">=</span> <span class="st">"bsklenv"</span>,</span>
+<span>  pkgname <span class="op">=</span> <span class="st">"scviR"</span>,</span>
+<span>  packages <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span><span class="st">"numpy==1.23.1"</span>, <span class="st">"pandas==1.4.4"</span><span class="op">)</span>,</span>
+<span>  pip <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html" class="external-link">c</a></span><span class="op">(</span></span>
+<span>    <span class="st">"scvi-tools==0.20.0"</span>, <span class="st">"scanpy==1.9.1"</span>, <span class="co"># "scikit-misc==0.1.4",</span></span>
+<span>    <span class="st">"matplotlib==3.6.3"</span></span>
+<span>  <span class="op">)</span></span>
+<span><span class="op">)</span></span></code></pre>
+</div>
+<div class="section level3">
+<h3 id="arranging-client-functionsmethods">Arranging client functions/methods<a class="anchor" aria-label="anchor" href="#arranging-client-functionsmethods"></a>
+</h3>
+<p>The <code>BasiliskEnvironment</code> instance is an unexported symbol in the client package namespace. <code>basiliskStart</code>. In general, client functions use basiliskStart to fork the R process and use reticulate to call python methods defined in the <code>BasiliskEnvironment</code> instance. <code>basiliskRun</code> is then used with the environment to work with python modules via reticulate.</p>
+<pre><code><span><span class="va">scviR</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>  <span class="va">proc</span> <span class="op">&lt;-</span> <span class="fu">basilisk</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/basilisk/man/basiliskStart.html" class="external-link">basiliskStart</a></span><span class="op">(</span><span class="va">bsklenv</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/on.exit.html" class="external-link">on.exit</a></span><span class="op">(</span><span class="fu">basilisk</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/basilisk/man/basiliskStart.html" class="external-link">basiliskStop</a></span><span class="op">(</span><span class="va">proc</span><span class="op">)</span><span class="op">)</span></span>
+<span>  <span class="fu">basilisk</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/basilisk/man/basiliskStart.html" class="external-link">basiliskRun</a></span><span class="op">(</span><span class="va">proc</span>, <span class="kw">function</span><span class="op">(</span><span class="op">)</span> <span class="op">{</span></span>
+<span>    <span class="fu">reticulate</span><span class="fu">::</span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/import.html" class="external-link">import</a></span><span class="op">(</span><span class="st">"scvi"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span><span class="op">}</span></span></code></pre>
+<p>The approach used above has worked for some time, but it should be modified to have the parameter <code>persist</code> set to TRUE in the <code>basiliskRun</code> calls.</p>
+</div>
+<div class="section level3">
+<h3 id="attending-to-automated-python-infrastructure-acquisition">Attending to automated python infrastructure acquisition<a class="anchor" aria-label="anchor" href="#attending-to-automated-python-infrastructure-acquisition"></a>
+</h3>
+<p>If basiliskStart cannot load the python packages specified in the BasiliskEnvironment instance, it will call <code><a href="https://rdrr.io/pkg/basilisk.utils/man/installConda.html" class="external-link">basilisk.utils::installConda()</a></code>. This</p>
+<pre><code>downloads and runs a Miniconda installer to
+create a dedicated Conda instance that is managed by 'basilisk',
+separate from other instances that might be available on the
+system.</code></pre>
+<p>Every version of basilisk and every version of any client package will, by default, have its own Miniconda installation. Tooling for removing conda environments for obsolete versions is available in <code>basilisk.utils</code>.</p>
+</div>
+<div class="section level3">
+<h3 id="exercise-1">Exercise 1<a class="anchor" aria-label="anchor" href="#exercise-1"></a>
+</h3>
+<p>Compare the results of</p>
+<pre><code><span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"du -sh"</span>, <span class="fu">basilisk.utils</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/basilisk.utils/man/getCondaDir.html" class="external-link">getCondaDir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/system.html" class="external-link">system</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html" class="external-link">paste</a></span><span class="op">(</span><span class="st">"du -sh"</span>, <span class="fu"><a href="https://rdrr.io/r/base/Rhome.html" class="external-link">R.home</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span></code></pre>
+<p>Note that the python infrastructure installed here supports anndata, scvi-tools, and hail and all their python dependencies.</p>
+</div>
+<div class="section level3">
+<h3 id="exercise-2">Exercise 2<a class="anchor" aria-label="anchor" href="#exercise-2"></a>
+</h3>
+<p>Use the commands</p>
+<pre><code><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/vjcitn/scviR" class="external-link">scviR</a></span><span class="op">)</span></span>
+<span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://rstudio.github.io/reticulate/" class="external-link">reticulate</a></span><span class="op">)</span></span>
+<span><span class="va">scvi</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/scviR/man/scviR.html" class="external-link">scviR</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/names.html" class="external-link">names</a></span><span class="op">(</span><span class="va">scvi</span><span class="op">)</span></span></code></pre>
+<p>Now try</p>
+<pre><code><span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/py_help.html" class="external-link">py_help</a></span><span class="op">(</span><span class="va">scvi</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rstudio.github.io/reticulate/reference/py_help.html" class="external-link">py_help</a></span><span class="op">(</span><span class="va">scvi</span><span class="op">$</span><span class="va">module</span><span class="op">)</span></span></code></pre>
+<p>This is a good way to learn about the capabilities of the imported python infrastructure.</p>
+</div>
+<div class="section level3">
+<h3 id="caveat">Caveat<a class="anchor" aria-label="anchor" href="#caveat"></a>
+</h3>
+<p>Using the two client packages <code>scviR</code> and <code>BiocHail</code> in a single R session is currently inadvisable. In the following, I had previously run <code><a href="https://rdrr.io/pkg/BiocHail/man/hail_init.html" class="external-link">BiocHail::hail_init()</a></code></p>
+<pre><code>&gt; scvi = scviR()
+Global seed set to 0
+&gt; hl
+Module(hail)
+&gt; scvi
+&lt;pointer: 0x0&gt;</code></pre>
+<p>It is possible that proper use of the <code>persist</code> parameter with basiliskRun would prevent this. In this workshop we will restart R when moving from one package to another.</p>
 <!--
 An example for a 45-minute workshop:
 
@@ -271,7 +347,6 @@ work on the code idependently -- do not be too ambitious in the
 material that you present.
 
 -->
-</div>
 </div>
 </div>
 <div class="footnotes">

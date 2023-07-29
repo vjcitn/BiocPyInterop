@@ -101,6 +101,122 @@ with findings from fitting an autoencoder to the same data in scvi-tools
         - examine an artificial GWAS with 1000 genomes genotypes and a fabricated phenotype
         - understand how to use telomere-to-telomere variant calls with Hail
 
+# Overview of basilisk
+
+There are three basic phases of working with basilisk to 
+interoperate with python in an R package.  
+
+## BasiliskEnvironment
+
+First,
+define the `BasiliskEnvironment`, in which python 
+dependencies are explicitly declared.  Here's an
+example from scviR, an interface to scvi-tools of the
+scverse.  All explicit dependencies have versions pinned.
+
+```
+bsklenv <- basilisk::BasiliskEnvironment(
+  envname = "bsklenv",
+  pkgname = "scviR",
+  packages = c("numpy==1.23.1", "pandas==1.4.4"),
+  pip = c(
+    "scvi-tools==0.20.0", "scanpy==1.9.1", # "scikit-misc==0.1.4",
+    "matplotlib==3.6.3"
+  )
+)
+```
+
+## Arranging client functions/methods
+
+The `BasiliskEnvironment` instance is an unexported
+symbol in the client package namespace.
+`basiliskStart`.  In general, client functions
+use basiliskStart to fork the R process and use
+reticulate to call python methods defined in the `BasiliskEnvironment`
+instance.  `basiliskRun` is then used with the environment
+to work with python modules via reticulate.
+
+```
+scviR <- function() {
+  proc <- basilisk::basiliskStart(bsklenv)
+  on.exit(basilisk::basiliskStop(proc))
+  basilisk::basiliskRun(proc, function() {
+    reticulate::import("scvi")
+  })
+}
+```
+
+The approach used above has worked for some time, but it should
+be modified to have the parameter `persist` set to TRUE in
+the `basiliskRun` calls.
+
+## Attending to automated python infrastructure acquisition
+
+If basiliskStart cannot load the python packages specified
+in the BasiliskEnvironment instance, it will call
+`basilisk.utils::installConda()`.  This
+
+```
+downloads and runs a Miniconda installer to
+create a dedicated Conda instance that is managed by 'basilisk',
+separate from other instances that might be available on the
+system.
+```
+
+Every version of basilisk and every version of any client
+package will, by default, have its own Miniconda installation.
+Tooling for removing conda environments for obsolete versions
+is available in `basilisk.utils`.
+
+## Exercise 1
+
+Compare the results of
+
+```
+system(paste("du -sh", basilisk.utils::getCondaDir()))
+system(paste("du -sh", R.home()))
+```
+
+Note that the python infrastructure installed here supports
+anndata, scvi-tools, and hail and all their python dependencies.
+
+## Exercise 2
+
+Use the commands
+
+```
+library(scviR)
+library(reticulate)
+scvi = scviR()
+names(scvi)
+```
+
+Now try
+```
+py_help(scvi)
+py_help(scvi$module)
+```
+
+This is a good way to learn about the capabilities of the imported
+python infrastructure.
+
+## Caveat
+
+Using the two client packages `scviR` and `BiocHail` in a single R session is currently
+inadvisable.  In the following, I had previously run `BiocHail::hail_init()`
+
+```
+> scvi = scviR()
+Global seed set to 0
+> hl
+Module(hail)
+> scvi
+<pointer: 0x0>
+```
+It is possible that proper use of the `persist` parameter with basiliskRun
+would prevent this.  In this workshop we will restart R when moving
+from one package to another.
+
 
 <!--
 An example for a 45-minute workshop:
